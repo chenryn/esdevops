@@ -1,0 +1,16 @@
+[FORMAT]
+:default = %date %status %remotehost %domain %request %originhost %responsetime %upstreamtime %bytes %referer %useragent %xforwarderfor
+:common = %date %status %remotehost %bytes %responsetime
+[REGEXP]
+%date = (?#=date)\[(?#=ts)\d{2}\/\w{3}\/\d{4}(?::\d{2}){3}(?#!ts) [-+]\d{4}\](?#!date)
+%status = (?#=status)\d+(?#!status)
+%remotehost = (?#=remotehost)\S+(?#!remotehost)
+%domain = (?#=domain).*?(?#!domain)
+%request = (?#=request)-|(?#=method)\w+(?#!method) (?#=url).*?(?#!url) (?#=version)HTTP/\d\.\d(?#!version)(?#!request)
+%originhost = (?#=originhost)-|(?#=oh).*?(?#!oh):\d+(?#!originhost)
+%responsetime = (?#=responsetime)-|.*?(?#!responsetime)
+%upstreamtime = (?#=upstreamtime).*?(?#!upstreamtime)
+%bytes = (?#=bytes)\d+(?#!bytes)
+%referer = (?#=referer)\"(?#=ref).*?(?#!ref)\"(?#!referer)
+%useragent = (?#=useragent)\"(?#=ua).*?(?#!ua)\"(?#!useragent)
+%xforwarderfor = (?#=xforwarderfor)\"(?#=xff).*?(?#!xff)\"(?#!xforwarderfor)
