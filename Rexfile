@@ -35,7 +35,7 @@ task "init", sub {
       $box->forward_port(ssh => [2222 => 22]);
 
       # share a folder from the host system
-      $box->share_folder("sharedir" => "./files");
+      $box->share_folder("/root/sharedir" => "./files");
 
       # define the authentication to the box
       # if you're downloading one from box.rexify.org this is the default.
@@ -46,7 +46,7 @@ task "init", sub {
 
       # if you want to provision the machine, 
       # you can define the tasks to do that
-      $box->setup(qw/prepare all/);
+      $box->setup(qw/prepare esdevops:all/);
    };
 
 };

@@ -1,11 +1,16 @@
 package esdevops;
 
 use Rex -base;
+require esdevops::ElasticSearch;
+require esdevops::Logstash;
+require esdevops::Message::Passing; 
 
-require logstash;
-require elasticsearch;
-require message_passing;
-
-batch "all", qw/install_es install_kibana3 config_nginx get_logstash_jar get_mp/;
+task "all", group => 'servers', sub {
+    esdevops::ElasticSearch::install_es();
+    esdevops::ElasticSearch::install_kibana3();
+    esdevops::ElasticSearch::config_nginx();
+    esdevops::Logstash::get_logstash_jar();
+    esdevops::Message::Passing::get_mp();
+};
 
 1;
