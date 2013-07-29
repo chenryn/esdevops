@@ -5,7 +5,7 @@ require esdevops::ElasticSearch;
 require esdevops::Logstash;
 require esdevops::Message::Passing; 
 
-task "all", group => 'servers', sub {
+task "all", sub {
     esdevops::ElasticSearch::install_es();
     esdevops::ElasticSearch::install_kibana3();
     esdevops::ElasticSearch::config_nginx();

@@ -6,13 +6,13 @@ use Rex::Commands::Gather;
 use Rex::Commands::SCM;
 
 desc "Install ElasticSearch";
-task "install_es", group => 'servers', sub {
-   download "https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.1.deb";
+task "install_es", sub {
+   run "wget https://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-0.90.1.deb";
    run "dpkg -i elasticsearch-0.90.1.deb";
 };
 
 desc "Configure ElasticSearch";
-task "config_es", group => 'servers', sub {
+task "config_es", sub {
    file "/etc/init.d/elasticsearch",
       content => template("files/etc/init.d/elasticsearch", memsize => sprintf "%.0fg", memory->{'total'} / 2048 );
    file "/etc/elasticsearch/elasticsearch.yml",
@@ -21,7 +21,7 @@ task "config_es", group => 'servers', sub {
 };
 
 desc "Install Kibana3";
-task "install_kibana3", group => 'servers', sub {
+task "install_kibana3", sub {
    set repository => 'kibana',
       url => 'https://github.com/elasticsearch/kibana.git';
    checkout 'kibana',
@@ -30,7 +30,7 @@ task "install_kibana3", group => 'servers', sub {
 };
 
 desc "Configure Nginx to serve kibana3";
-task "config_nginx", group => 'servers', sub {
+task "config_nginx", sub {
    run "ln -s /usr/share/kibana3/sample/nginx.conf /etc/nginx/conf.d/kibana.conf";
    service nginx => ensure => "started";
 };

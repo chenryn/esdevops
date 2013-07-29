@@ -4,7 +4,7 @@ use Rex -base;
 use Rex::Commands::SCM;
 
 desc "get Message::Passing from github and installed by cpanm";
-task "get_mp", group => 'servers', sub {
+task "get_mp", sub {
    install package => "cpanminus";
    set repository => 'utils',
       url => 'https://github.com/chenryn/Message-Passing-Utils.git';

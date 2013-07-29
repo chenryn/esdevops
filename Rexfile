@@ -15,13 +15,14 @@ desc "Initialize and start the VM: rex init --name=vmname [--url=http://...]";
 task "init", sub {
 
    my $param = shift;
+   my $url = $param->{url} || 'http://box.rexify.org/box/ubuntu-server-12.10-amd64.ova';
 
    box {
       my ($box) = @_;
       $box->name($param->{name});
 
       # where to download the base image
-      $box->url($param->{url});
+      $box->url($url);
 
       # default is nat
       #$box->network(1 => {
@@ -32,7 +33,11 @@ task "init", sub {
       # only works with network type = nat
       # if a key ssh is present, rex will use this to log into the vm
       # you need this if you run VirtualBox not on your local host.
-      $box->forward_port(ssh => [2222 => 22]);
+      $box->forward_port(
+         ssh    => [2222 => 22],
+         nginx  => [8888 => 80],
+         eshttp => [9200 => 9200],
+      );
 
       # share a folder from the host system
       $box->share_folder("/root/sharedir" => "./files");
