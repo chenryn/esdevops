@@ -31,7 +31,7 @@ $ wc -l access.log.10
 100000 access.log.10
 ```
 
-## `$self->_regex->regexp()` in `filter` sub
+### `$self->_regex->regexp()` in `filter` sub
 
 ```
 $ time cat access.log.10 | ./mp-agent.pl 
@@ -41,7 +41,7 @@ user    1m13.296s
 sys     0m1.452s
 ```
 
-## pre-stored `$self->_re` instead
+### pre-stored `$self->_re` instead
 
 ```
 $ time cat access.log.10 | ./mp-agent.pl 
@@ -51,7 +51,7 @@ user    0m37.460s
 sys     0m1.128s
 ```
 
-## use `Logstash::Output::ElasticSearchHTTP` with default config:
+### use `Logstash::Output::ElasticSearchHTTP` with default config:
 
 ```
 $ time cat access.log.10 | java -jar logstash-1.1.13-flatjar.jar agent -f logstash-sample.conf 
@@ -61,7 +61,7 @@ user    2m34.680s
 sys     0m4.500s
 ```
 
-## increase `flush_size` to 1000 (same as message-passing):
+### increase `flush_size` to 1000 (same as message-passing):
 
 ```
 $ time cat access.log.10 | java -jar logstash-1.1.13-flatjar.jar agent -f logstash-sample.conf 
